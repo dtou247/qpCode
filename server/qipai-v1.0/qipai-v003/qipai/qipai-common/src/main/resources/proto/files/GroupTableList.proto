@@ -1,0 +1,53 @@
+syntax = "proto2";
+package com.sy599.game.msg.serverPacket;
+//创建一个牌桌
+message GroupTableListMsg {
+    optional int32 code = 1;
+    optional int64 groupId = 2;
+    optional int32 pageNo = 3;
+    optional int32 pageSize = 4;
+    optional int32 tableCount = 5;
+    repeated TableMsg tables = 6;
+    optional int32 groupLevel = 7;
+    optional int64 groupExp = 8;
+    optional int32 groupUserLevel = 9;
+    optional int64 groupUserExp = 10;
+}
+
+//牌桌上玩家信息
+message TableMsg {
+    optional int64 keyId = 1;
+    optional string serverId = 2;
+    optional int64 tableId = 3;
+    optional int64 groupId = 4;
+    optional int64 configId = 5;
+    optional string tableName = 6;
+    optional string tableMsg = 7;
+    optional string creditMsg = 8;
+    optional string currentState = 9;
+    optional int32 type = 10;
+    optional int32 currentCount = 11;
+    optional int32 maxCount = 12;
+    optional int32 playedBureau = 13;
+    optional int32 dealCount = 14;
+    optional bool notStart = 15;
+    optional int64 createdTime = 16;
+    optional int64 overTime = 17;
+    repeated MemberMsg members = 18;
+    optional int32 playType = 19;
+    optional int32 isPrivate = 20;
+}
+
+// 牌桌内玩家信息
+message MemberMsg {
+    optional int64 userId = 1;
+    optional string userName = 2;
+    optional string headimgurl = 3;
+    optional int32 sex = 4;
+    optional int32 isOnLine = 5;
+}
+
+// 用户头像列表
+message HeadImgListMsg {
+    repeated MemberMsg headImgs = 1;
+}

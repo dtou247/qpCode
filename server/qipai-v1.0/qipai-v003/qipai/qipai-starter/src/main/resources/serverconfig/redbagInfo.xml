@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+		PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="redbagInfo">
+
+	<resultMap class="com.sy599.game.db.bean.RedBagInfo" id="redbagInfo">
+		<result property="userId" column="userId" />
+		<result property="redBagType" column="redBagType" />
+		<result property="redbag" column="redbag" />
+		<result property="receiveDate" column="receiveDate" />
+		<result property="drawDate" column="drawDate" />
+		<result property="sourceType" column="sourceType" />
+		<result property="sourceTypeName" column="sourceTypeName" />
+	</resultMap>
+
+	<insert id="saveRedBagInfo" parameterClass="com.sy599.game.db.bean.RedBagInfo">
+		INSERT INTO
+		redbag_info
+		(userId,redBagType,redbag,receiveDate,drawDate,sourceType,sourceTypeName)
+		values
+		(#userId#,#redBagType#,#redbag#,#receiveDate#,#drawDate#,#sourceType#,#sourceTypeName#)
+		on duplicate key update
+		redbag=#redbag#,drawDate=#drawDate#,sourceType=#sourceType#,sourceTypeName=#sourceTypeName#
+	</insert>
+
+	<select id="getUserRedBagInfos" parameterClass="java.lang.Long"
+			resultMap="redbagInfo">
+		select * from redbag_info where userId =#userId#;
+	</select>
+
+	<select id="getUserRedBagInfosBySourceType" parameterClass="java.util.HashMap"
+			resultMap="redbagInfo">
+		select * from redbag_info where userId =#userId# and sourceType = #sourceType#;
+	</select>
+
+	<select id="getBiggerRedbagNum" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from redbag_info where redbag = 88.8 and receiveDate between #startDate# and #endDate#;
+  	</select>
+
+	<select id="getRedbagNum" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from redbag_info where redbag = #redbag# and receiveDate between #startDate# and #endDate#;
+  	</select>
+
+	<!-- 亲友圈红包雨功能	2021年5月22日 16:12:54-->
+	<!--    03 亲友圈红包雨活动配置-->
+	<resultMap id="GroupRedBagRainConfig" class="com.sy599.game.db.bean.redBagRain.GroupRedBagRainConfig">
+		<result column="keyid" jdbcType="BIGINT" property="keyid" />
+		<result column="groupId" jdbcType="BIGINT" property="groupid" />
+		<result column="pushStartTime" jdbcType="TIMESTAMP" property="pushstarttime" />
+		<result column="pushEndTime" jdbcType="TIMESTAMP" property="pushendtime" />
+		<result column="totalPoint" jdbcType="INTEGER" property="totalpoint" />
+		<result column="redBagNum" jdbcType="INTEGER" property="redbagnum" />
+		<result column="redMinPoint" jdbcType="INTEGER" property="redminpoint" />
+		<result column="redMaxPoint" jdbcType="INTEGER" property="redmaxpoint" />
+		<result column="state" jdbcType="INTEGER" property="state" />
+		<result column="gameTypeLimit" jdbcType="VARCHAR" property="gametypelimit" />
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+	</resultMap>
+
+	<!-- 红包雨	所有没推送的红包雨的配置-->
+	<select id="loadAllConfig" parameterClass="java.util.HashMap" resultMap="GroupRedBagRainConfig">
+		/*FORCE_MASTER*/
+		SELECT
+			*
+		FROM
+		t_group_redbagrain_config
+		WHERE
+		 state =0
+		AND pushStartTime  <![CDATA[ >= ]]>   #startDate#
+		AND pushStartTime  <![CDATA[ <= ]]>  #endDate#
+	</select>
+	<select id="loadAllOverConfig" parameterClass="java.util.HashMap" resultMap="GroupRedBagRainConfig">
+		/*FORCE_MASTER*/
+		SELECT
+			*
+		FROM
+		t_group_redbagrain_config
+		WHERE
+		 state =2
+		AND pushEndTime  <![CDATA[ >= ]]>   #startDate#
+		AND pushEndTime  <![CDATA[ <= ]]>  #endDate#
+	</select>
+
+	<!--红包雨	1发放中2已结束-->
+	<update id="updateRedBagConfigState" parameterClass="java.util.HashMap">
+      /*FORCE_MASTER*/
+         update
+            t_group_redbagrain_config
+         set
+           state= #state#
+         where keyId=#keyId#
+    </update>
+
+	<!--红包雨 抢红包-->
+	<update id="getOneRedBagResult" parameterClass="java.util.HashMap">
+      /*FORCE_MASTER*/
+        UPDATE   t_group_redBagRainResult AS R
+		INNER JOIN (SELECT id FROM t_group_redBagRainResult
+		WHERE  redbagconfigId=#keyId# AND userId=0 AND userTakeState =0 ORDER BY createTime ASC limit 1) AS U
+		ON r.id=u.id SET   userid= #userId# ,username=#username#,time=now();
+    </update>
+
+	<!--红包雨	 结算红包雨配置-->
+	<resultMap id="RedBagRainResult" class="com.sy599.game.db.bean.redBagRain.GroupRedBagResult" >
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="redbagnum" property="redbagnum" jdbcType="BIGINT" />
+		<result column="redbagConfigId" property="redBagConfigId" jdbcType="BIGINT" />
+		<result column="groupId" property="groupid" jdbcType="BIGINT" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="userId" property="userid" jdbcType="BIGINT" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+
+	<select id="loadAllUnTakeRedBag" parameterClass="java.lang.Long" resultMap="RedBagRainResult">
+  		  /*FORCE_MASTER*/
+  		SELECT
+			*
+		FROM
+			t_group_redBagRainResult
+		WHERE
+			redbagconfigId =#keyId# AND userTakeState =0;
+    </select>
+
+	<update id="updateResultState"  parameterClass="java.util.HashMap" >
+			 /*FORCE_MASTER*/ UPDATE t_group_redBagRainResult
+			SET usertakeState = 2
+			WHERE  redbagconfigid=#keyId# and usertakeState=0  ;
+
+	</update>
+	<update id="updateHuiZhangRecordResultByState"  parameterClass="java.util.HashMap" >
+			 /*FORCE_MASTER*/ UPDATE t_group_redBagRainResult
+			SET usertakeState = 1
+			WHERE  redbagconfigid=#keyId#
+			and userid=#userId#
+			and usertakeState=0  ;
+
+	</update>
+
+	<select id="getRedBagNum" parameterClass="java.util.HashMap" resultMap="RedBagRainResult" >
+		 /*FORCE_MASTER*/
+		SELECT
+			*
+		FROM
+			t_group_redBagRainResult
+		WHERE
+			redbagconfigId =#keyId#  and  userid=#userId#
+			 ORDER BY createTime ASC limit 1
+	</select>
+
+</sqlMap>

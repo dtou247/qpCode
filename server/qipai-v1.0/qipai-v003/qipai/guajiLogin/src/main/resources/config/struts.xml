@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.devMode" value="false"/>
+<!--	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>-->
+	<constant name="struts.custom.i18n.resources" value="globalMessages"/>
+	<constant name="struts.action.extension" value="action,guajilogin,do"/>
+
+<!--	自动注入总是有效-->
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+
+	<package name="mango-struts-default" extends="struts-default" namespace="/">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+	</package>
+	<package name="jn-struts-default" namespace="/" extends="struts-default">
+		<!-- 100 -->
+		<action class="com.sy.sanguo.game.action.BjdAction" name="d100"  method="clientLogMsg" />
+
+		<!-- 200 -->
+		<action class="com.sy.sanguo.game.action.DataStatisticsAction" name="d200"  method="loadGroupDataRank" />
+
+		<!-- 300 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d300"  method="createGroupRoom" />
+		<!-- 301 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d301"  method="deleteTableConfig" />
+		<!-- 302 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d302"  method="groudReadPiont" />
+		<!-- 303 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d303"  method="loadGroupTeamUsers" />
+		<!-- 304 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d304"  method="loadGroupTeams" />
+		<!-- 305 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d305"  method="loadUserBase" />
+		<!-- 306 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d306"  method="replenishGroupTable" />
+		<!-- 307 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d307"  method="searchGroupReview" />
+		<!-- 308 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d308"  method="setGroupIsRefuseInvite" />
+		<!-- 309 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d309"  method="updateGroupInfo" />
+		<!-- 310 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d310"  method="updateTableConfig" />
+		<!-- 311 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d311"  method="fire" />
+		<!-- 312 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d313"  method="dissTable" />
+		<!-- 313 -->
+		<action class="com.sy.sanguo.game.action.group.GroupAction" name="d314"  method="exitGroup" />
+
+		<!-- 400 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d400" method="addGroupWarn" />
+		<!-- 401 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d401" method="applyJoinGroup" />
+		<!-- 402 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d402" method="commissionLog" />
+		<!-- 403 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d403" method="commissionLogNextLevel" />
+		<!-- 404 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d404" method="createGroup" />
+		<!-- 405 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d405" method="creditLogList" />
+		<!-- 406 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d406" method="deleteGroupWarn" />
+		<!-- 407 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d407" method="deleteUser" />
+		<!-- 408 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d408" method="groupWarnList" />
+		<!-- 409 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d409" method="inviteUser" />
+		<!-- 410 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d410" method="loadCommissionConfig" />
+		<!-- 411 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d411" method="loadCommissionDetailForTable" />
+		<!-- 412 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d412" method="loadCreditCommissionLog" />
+		<!-- 413 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d413" method="loadCreditCommissionLogByUser" />
+		<!-- 414 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d414" method="loadCreditLog" />
+		<!-- 415 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d415" method="loadGroupList" />
+		<!-- 416 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d416" method="loadGroupUserAlert" />
+		<!-- 417 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d417" method="loadGroupUserList" />
+		<!-- 418 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d418" method="loadGroupUserRejectList" />
+		<!-- 419 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d419" method="loadTableCount" />
+		<!-- 420 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d420" method="loadTablePlayLogs" />
+		<!-- 421 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d421" method="loadTableRecord" />
+		<!-- 422 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d422" method="modifyRelation" />
+		<!-- 423 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d423" method="rankList" />
+		<!-- 424 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d424" method="responseApply" />
+		<!-- 425 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d425" method="searchCreditCommissionLog" />
+		<!-- 426 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d426" method="searchUser" />
+		<!-- 427 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d427" method="searchUserList" />
+		<!-- 428 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d428" method="teamList" />
+		<!-- 429 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d429" method="teamUserList" />
+		<!-- 430 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d430" method="updateAllotMode" />
+		<!-- 431 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d431" method="updateCommissionConfig" />
+		<!-- 432 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d432" method="updateCredit" />
+		<!-- 433 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d433" method="updateGroupInfo" />
+		<!-- 434 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d434" method="updateGroupTableConfig" />
+		<!-- 435 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d435" method="updateGroupUser" />
+		<!-- 436 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d436" method="updateGroupUserReject" />
+		<!-- 437 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d437" method="updateGroupWarn" />
+		<!-- 438 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d438" method="updateUserRole" />
+		<!-- 439 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d439" method="userListAdmin" />
+		<!-- 440 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d440" method="userListForLogDetail" />
+		<!-- 441 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d441" method="userListNextLevel" />
+		<!-- 442 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d442" method="loadGroupLevelConfig" />
+		<!-- 443 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d443" method="loadInactiveUserList" />
+		<!-- 444 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d444" method="fireInactiveUser" />
+		<!-- 445 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d445" method="updateGroupCreditRate" />
+		<!-- 446 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d446" method="responseInvite" />
+		<!-- 447 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d447" method="loadLogGroupCommissionData" />
+		<!--448 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d448"  method="updateGroupInfo"/>
+
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="d449"  method="quitGroup"/>
+
+		<!-- 500 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d500" method="bindInviteId" />
+		<!-- 501 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d501" method="getBackStageManagement" />
+		<!-- 502 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d502" method="getBindOneMsg" />
+		<!-- 503 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d503" method="getPlayBackLog" />
+		<!-- 504 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d504" method="getServerById" />
+		<!-- 505 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d505" method="getUserPlayLog" />
+		<!-- 506 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d506" method="openCreateGroup" />
+		<!-- 507 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d507" method="queryBindConsumption" />
+		<!-- 508 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d508" method="checkIp" />
+		<!-- 509 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d509" method="share" />
+		<!-- 510 -->
+		<action class="com.sy.sanguo.game.pdkuai.action.PdkAction" name="d510" method="getAddressFromIp" />
+
+		<!-- 600 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d600" method="updateUser" />
+		<!-- 601 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d601" method="editUserMsg" />
+		<!-- 602 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d602" method="getVerifyCode" />
+		<!-- 603 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d603" method="load" />
+		<!-- 604 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d604" method="queryUserMsg" />
+		<!-- 605 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d605" method="register" />
+		<!-- 606 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d606" method="uploadPassword" />
+		<!-- 607 -->
+		<action class="com.sy.sanguo.game.action.UserAction" name="d607" method="verifyCode" />
+
+
+
+		<action class="com.sy.sanguo.game.action.BjdAction" name="changeUserCurrency"  method="changeUserCurrency" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="createGroup"  method="createGroup" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="forbidGroup"  method="forbidGroup" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="recycleGroupId"  method="recycleGroupId" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="updateGroupGameIds"  method="updateGroupGameIds" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="changeMaster"  method="changeMaster" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="updateGroup"  method="updateGroup" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="moveGroupUser"  method="moveGroupUser" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="fireUser"  method="fireUser" />
+		<action class="com.sy.sanguo.game.action.BjdAction" name="selfRegister"  method="selfRegister" />
+
+
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr01"  method="addRedBagConfig" />
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr02"  method="loadRedBagConfig" />
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr03"  method="loadRedBagRainResult" />
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr04"  method="deleteRedBagConfig" />
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr05"  method="loadRedBagConfigHistoryInfo" /><!--群主看红包雨投放记录-->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr06"  method="loadGroupRedBagResultInfo" /><!--群主看红包雨情况-->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr07"  method="loadUserRedBagResultInfo" /><!--玩家红包雨结果查询-->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr08"  method="userTakeRedBag " /><!--用户领取红包 -->
+		<action class="com.sy.sanguo.game.action.group.GroupActionNew" name="rbr09"  method="redBagRainStatistics " /><!--群主红包雨投放池统计 -->
+
+
+	</package>
+</struts>
